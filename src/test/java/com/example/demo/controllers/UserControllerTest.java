@@ -42,7 +42,6 @@ public class UserControllerTest {
         assertEquals(200, responseEntity.getStatusCodeValue());
         User user = responseEntity.getBody();
         assertNotNull(user);
-
         assertEquals(0, user.getId());
         assertEquals("testBruh", user.getUsername());
         assertEquals("thisIsHashed", user.getPassword());
