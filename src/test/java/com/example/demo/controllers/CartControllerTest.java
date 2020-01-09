@@ -53,7 +53,8 @@ public class CartControllerTest {
 
         Cart cart = new Cart();
         user.setCart(cart);
-        Item item = new Item();item.setId((long) 0);
+        Item item = new Item();
+        item.setId((long) 0);
         item.setName("Tom Ford Bruh");
         item.setPrice(BigDecimal.valueOf(69.420));
         item.setDescription("This is the real deal bruhszz!");
@@ -71,6 +72,49 @@ public class CartControllerTest {
         assertEquals(200, cartResponseEntity.getStatusCodeValue());
         assertEquals(BigDecimal.valueOf((69.420 * 9)), cartResponseEntity.getBody().getTotal());
         assertEquals(9, cartResponseEntity.getBody().getItems().size());
+
+    }
+
+    @Test
+    public void remove_from_cart_happy_path() {
+        ModifyCartRequest modifyCartRequest = new ModifyCartRequest();
+        modifyCartRequest.setItemId(0);
+        modifyCartRequest.setUsername("Bruh");
+        modifyCartRequest.setQuantity(69);
+
+        User user = new User();
+        user.setId(0);
+        user.setUsername("Bruh");
+        user.setPassword("BruhDudeBruh");
+
+        Cart cart = new Cart();
+        user.setCart(cart);
+        Item item = new Item();
+        item.setId((long) 0);
+        item.setName("Tom Ford Bruh");
+        item.setPrice(BigDecimal.valueOf(69.420));
+        item.setDescription("This is the real deal bruhszz!");
+
+        Optional<Item> optionalItem = Optional.of(item);
+
+        when(userRepository.findByUsername(modifyCartRequest.getUsername())).thenReturn(user);
+        when(itemRepository.findById(modifyCartRequest.getItemId())).thenReturn(optionalItem);
+
+        ResponseEntity<Cart> cartResponseEntity = cartController.addTocart(modifyCartRequest);
+
+        ModifyCartRequest removeFromCartRequest = new ModifyCartRequest();
+        removeFromCartRequest.setUsername("Bruh");
+        removeFromCartRequest.setItemId(0);
+        removeFromCartRequest.setQuantity(27);
+
+        ResponseEntity<Cart> removeFromCartResponseEntity = cartController.removeFromcart(removeFromCartRequest);
+
+        assertNotNull(removeFromCartResponseEntity);
+
+        assertEquals(200, removeFromCartResponseEntity.getStatusCodeValue());
+
+        assertEquals(42, removeFromCartResponseEntity.getBody().getItems().size());
+
 
     }
 }
