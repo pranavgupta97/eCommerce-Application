@@ -100,7 +100,7 @@ public class CartControllerTest {
         when(userRepository.findByUsername(modifyCartRequest.getUsername())).thenReturn(user);
         when(itemRepository.findById(modifyCartRequest.getItemId())).thenReturn(optionalItem);
 
-        ResponseEntity<Cart> cartResponseEntity = cartController.addTocart(modifyCartRequest);
+        cartController.addTocart(modifyCartRequest);
 
         ModifyCartRequest removeFromCartRequest = new ModifyCartRequest();
         removeFromCartRequest.setUsername("Bruh");
