@@ -51,7 +51,6 @@ public class UserController {
 	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest) {
 		User user = new User();
 		user.setUsername(createUserRequest.getUsername());
-		logger.info("User created with username: {}", user.getUsername());
 		Cart cart = new Cart();
 		cartRepository.save(cart);
 		user.setCart(cart);
@@ -63,6 +62,8 @@ public class UserController {
 			user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
 		}
 		userRepository.save(user);
+
+		logger.info("User created with username: {}", user.getUsername());
 		return ResponseEntity.ok(user);
 	}
 	
