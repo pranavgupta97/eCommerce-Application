@@ -67,7 +67,20 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.splunk</groupId>
+			<artifactId>splunk</artifactId>
+			<version>1.6.0.0</version>
+		</dependency>
 	</dependencies>
+
+	<repositories>
+	<repository>
+		<id>splunk-artifactory</id>
+		<name>Splunk Releases</name>
+		<url>http://splunk.jfrog.io/splunk/ext-releases-local</url>
+	</repository>
+	</repositories>
 
 	<build>
 		<plugins>
